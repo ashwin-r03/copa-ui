@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 import DateTimePicker from "react-datetime-picker";
+import imageUrl from '../images/travelimg1.jpg'
+
+
 
 class TravelDetail extends Component {
 
@@ -104,6 +107,9 @@ class TravelDetail extends Component {
         });
     };
 
+
+
+
     render(){
         const title=<h1 >{"Traveler Detail"}</h1>;
         const {trip}=this.state;
@@ -113,11 +119,11 @@ class TravelDetail extends Component {
             return <p>Loading...</p>;
         }*/
 
-        return<div>
-            <Container>
-                <Form onSubmit={this.handleSubmit}>
+        return<div style={{backgroundImage: `url(${imageUrl})` }}>
+            <Container style={{fontWeight: 'bold'}} >
+                 <Form onSubmit={this.handleSubmit}>
                     {title}
-                <FormGroup>
+                <FormGroup >
                     <Label for="Email">Email</Label>
                     <Input type="email" name="travellerId" id="travellerId" value={trip.travellerId || ''}
                            onChange={this.handleChange} autoComplete="Email"/>
@@ -172,43 +178,43 @@ class TravelDetail extends Component {
                     {/*</FormGroup>*/}
 
                     <FormGroup>
-                    <Label for="PreviouslyTravel">PreviouslyTravel</Label>
-                    <input type="checkbox" name="PreviouslyTravel" id="PreviouslyTravel" checked={this.state.trip.PreviouslyTravel}
+                    <Label for="PreviouslyTravel">PreviouslyTravel</Label>{'  '}
+                    <input type="checkbox"  className="text-center" name="PreviouslyTravel" id="PreviouslyTravel" checked={this.state.trip.PreviouslyTravel}
                            onChange={this.handleInputChange} autoComplete="PreviouslyTravel" />
                     </FormGroup>
 
                     <FormGroup>
-                    <Label for="isTicketBooked">isTicketBooked</Label>
+                    <Label for="isTicketBooked">TicketBooked</Label> {'  '}
                     <input type="checkbox" name="isTicketBooked" id="isTicketBooked" checked={this.state.trip.isTicketBooked}
                            onChange={this.handleInputChange} autoComplete="isTicketBooked"  />
                     </FormGroup>
 
                     <FormGroup>
-                    <Label for="isDomestic">isDomestic</Label>
+                    <Label for="isDomestic">IsDomestic</Label> {' '}
                     <input type="checkbox" name="isDomestic" id="isDomestic" checked={this.state.trip.isDomestic}
                            onChange={this.handleInputChange} autoComplete="isDomestic"  />
                     </FormGroup>
 
                     <FormGroup>
-                    <Label for="canTakePackageInd">canTakePackageInd</Label>
+                    <Label for="canTakePackageInd">CanTakePackage</Label> {'  '}
                     <input type="checkbox" name="canTakePackageInd" id="canTakePackageInd" checked={this.state.trip.canTakePackageInd}
                            onChange={this.handleInputChange} autoComplete="canTakePackageInd" />
                     </FormGroup>
 
                     <FormGroup>
-                    <Label for="isFinalDestination">isFinalDestination</Label>
+                    <Label for="isFinalDestination">FinalDestination</Label> {'  '}
                     <input type="checkbox" name="isFinalDestination" id="isFinalDestination" checked={this.state.trip.isFinalDestination}
                            onChange={this.handleInputChange} autoComplete="isFinalDestination" />
                     </FormGroup>
 
                     <FormGroup>
-                    <Label for="mode">mode</Label>
+                    <Label for="mode">Mode</Label>
                     <Input type="text" name="mode" id="mode" value={trip.mode || ''}
                            onChange={this.handleChange} autoComplete="mode"/>
                     </FormGroup>
 
                     <FormGroup>
-                    <Label for="travellingWith">travellingWith</Label>
+                    <Label for="travellingWith">TravellingWith</Label>
                     <Input type="text" name="travellingWith" id="travellingWith" value={trip.travellingWith || ''}
                            onChange={this.handleChange} autoComplete="travellingWith" maxLength={30}/>
                     </FormGroup>
