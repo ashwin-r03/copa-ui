@@ -2,7 +2,6 @@ import {Button, Container, FormGroup, Input, Label} from "reactstrap";
 import {Link,withRouter} from "react-router-dom";
 import React from "react";
 import DateTimePicker from "react-datetime-picker";
-import "react-datepicker/dist/react-datepicker.css";
 import imageUrl from '../images/travelimg1.jpg'
 
 
