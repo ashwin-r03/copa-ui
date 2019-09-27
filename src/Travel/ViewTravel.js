@@ -1,9 +1,10 @@
 import {Button, Container, FormGroup, Input, Label} from "reactstrap";
-import {Link} from "react-router-dom";
+import {Link,withRouter} from "react-router-dom";
 import React from "react";
 import DateTimePicker from "react-datetime-picker";
 import "react-datepicker/dist/react-datepicker.css";
 import imageUrl from '../images/travelimg1.jpg'
+
 
 class viewTravel extends React.Component{
 
@@ -21,6 +22,8 @@ class viewTravel extends React.Component{
         this.state={
             viewDetail:this.viewDetail,
             errors: {},
+            isfetchUser:false,
+          //  fetchUser:[],
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -114,7 +117,6 @@ class viewTravel extends React.Component{
 
 
 
-
     async fetchUser(event) {
         event.preventDefault();
         const {viewDetail} = this.state;
@@ -124,62 +126,91 @@ class viewTravel extends React.Component{
                 method: (viewDetail.id) ? 'PUT' : 'POST',
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin':'*',
                 },
 
                 body: JSON.stringify(viewDetail),
             }).then((response) => {
                 console.log("response", response);
                 this.setState({
-                    fetchUser: response.data
+                    fetchUser: response.data,
+                    isfetchUser:true,
                 });
                 console.log("fetchUser", this.state.fetchUser);
             })
                 .catch((error) => {
+             /*       let stub_User=[];
+                    stub_User["travellerId"]="ashwin";
+                    alert(JSON.stringify(this.state.isfetchUser))
+                    this.setState({
+                        fetchUser:stub_User,
+                    });
+                    this.setState({
+                        fetchUser:stub_User,
+                        isfetchUser:true,
+                    });*/
+                    console.log(JSON.stringify(this.state.fetchUser));
                     console.log(error);
                 });
+          //  this.props.history.push("/home");
 
-            this.props.history.push('/home');
         }
     };
 
     render(){
         const {viewDetail} = this.state;
+        const isfetchUser=this.state.isfetchUser;
+
         const ViewDetails=<h1>View Details</h1>
+        if (!isfetchUser){
         return<div style={{backgroundImage: `url(${imageUrl})` }}>
+
+
             <Container style={{fontWeight: 'bold'}}>
                 {ViewDetails}
-                     <FormGroup>
-                        <Label for="Email">Email</Label>
-                        <Input type="email" name="email" id="email" value={viewDetail.email || ''}
-                               onChange={this.handleChange} autoComplete="email" />
-                         <div className="alert-danger">{this.state.errors.email}</div>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="Source">Source</Label>
-                        <Input type="text" name="Source" id="Source" value={viewDetail.Source || ''}
-                               onChange={this.handleChange} autoComplete="Source" maxLength={3}/>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="Destination">Destination</Label>
-                        <Input type="text" name="Destination" id="Destination" value={viewDetail.Destination || ''}
-                               onChange={this.handleChange} autoComplete="Destination" maxLength={3}/>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="StartDate">StartDate</Label>
-                        <DateTimePicker name="StartDate" id="StartDate"   selected={this.state.StartDate} value={this.state.viewDetail.StartDate || ''}
-                               onChange={this.handleDateChange} autoComplete="StartDate"/>
-                    </FormGroup>
+                <FormGroup>
+                    <Label for="Email">Email</Label>
+                    <Input type="email" name="email" id="email" value={viewDetail.email || ''}
+                           onChange={this.handleChange} autoComplete="email"/>
+                    <div className="alert-danger">{this.state.errors.email}</div>
+                </FormGroup>
+                <FormGroup>
+                    <Label for="Source">Source</Label>
+                    <Input type="text" name="Source" id="Source" value={viewDetail.Source || ''}
+                           onChange={this.handleChange} autoComplete="Source" maxLength={3}/>
+                </FormGroup>
+                <FormGroup>
+                    <Label for="Destination">Destination</Label>
+                    <Input type="text" name="Destination" id="Destination" value={viewDetail.Destination || ''}
+                           onChange={this.handleChange} autoComplete="Destination" maxLength={3}/>
+                </FormGroup>
+                <FormGroup>
+                    <Label for="StartDate">StartDate</Label>
+                    <DateTimePicker name="StartDate" id="StartDate" selected={this.state.StartDate}
+                                    value={this.state.viewDetail.StartDate || ''}
+                                    onChange={this.handleDateChange} autoComplete="StartDate"/>
+                </FormGroup>
 
-                    <FormGroup>
-                        <Button color="primary" tag={Link} to="/view" id="view" onClick={this.fetchUser}>View</Button>{' '}
-                    </FormGroup>
+                <FormGroup>
+                    <Button color="primary" tag={Link} to="/view" id="view" onClick={this.fetchUser}>View</Button>{' '}
+                </FormGroup>
 
             </Container>
 
-        </div>
+
+        </div> } if (isfetchUser){
+
+            const elements=this.state.fetchUser;
+            alert(JSON.stringify(elements));
+            return(
+                <div>
+                    <Label for="Email">Email</Label>{elements["travellerId"]}
+
+                </div>
+        )}
     }
 
 }
 
-export default viewTravel
+export default withRouter(viewTravel)
