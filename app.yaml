@@ -11,4 +11,4 @@ automatic_scaling:
   max_pending_latency: automatic
 network:
   forwarded_ports:
-    -8080
+    8080
