@@ -5,7 +5,6 @@ import DateTimePicker from "react-datetime-picker";
 import imageUrl from '../images/travelimg1.jpg'
 
 
-
 class TravelDetail extends Component {
 
             Trip={
@@ -62,13 +61,13 @@ class TravelDetail extends Component {
     async handleSubmit(event) {
         event.preventDefault();
         const {trip} = this.state;
+        alert(process.env.REACT_APP_BACKEND_HOST);
         this.setState({trips:{trip}})
-
-            await fetch(`http://localhost:8081/tc/createTrip`, {
+            await fetch(`/createTrip`, {
             method: (trip.id) ? 'PUT' : 'POST',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify(this.state.trips),
         });
