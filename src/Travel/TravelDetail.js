@@ -61,9 +61,8 @@ class TravelDetail extends Component {
     async handleSubmit(event) {
         event.preventDefault();
         const {trip} = this.state;
-        alert(process.env.REACT_APP_BACKEND_HOST);
         this.setState({trips:{trip}})
-            await fetch(`/createTrip`, {
+            await fetch(`https://dd-project-c.appspot.com/createTrip`, {
             method: (trip.id) ? 'PUT' : 'POST',
             headers: {
                 'Accept': 'application/json',
