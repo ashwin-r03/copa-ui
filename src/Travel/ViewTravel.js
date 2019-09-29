@@ -119,9 +119,8 @@ class viewTravel extends React.Component{
     async fetchUser(event) {
         event.preventDefault();
         const {viewDetail} = this.state;
-        alert(JSON.stringify(viewDetail));
         if (this.validateForm()) {
-            await fetch(`http://localhost:8081/tc/findTrip`, {
+            await fetch(`https://dd-project-c.appspot.com/check`, {
                 method: (viewDetail.id) ? 'PUT' : 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -131,6 +130,7 @@ class viewTravel extends React.Component{
 
                 body: JSON.stringify(viewDetail),
             }).then((response) => {
+                alert(JSON.stringify(response))
                 console.log("response", response);
                 this.setState({
                     fetchUser: response.data,
