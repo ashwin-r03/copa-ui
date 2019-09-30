@@ -118,22 +118,23 @@ class viewTravel extends React.Component{
 
     async fetchUser(event) {
         event.preventDefault();
-        const {viewDetail} = this.state;
+       const {viewDetail} = this.state;
+    alert("process.env.REACT_APP_BACKEND_HOST_PING"+process.env.REACT_APP_BACKEND_HOST_PING);
         if (this.validateForm()) {
-            await fetch(`https://dd-project-c.appspot.com/check`, {
-                method: (viewDetail.id) ? 'PUT' : 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin':'*',
-                },
+            await fetch(`${process.env.REACT_APP_BACKEND_HOST_PING}`, {
+                method:  'POST',
+                 headers: {
+                //     Accept: 'application/json',
+                //     'Content-Type': 'application/json',
+                //     'Access-Control-Allow-Origin':'*',
+                //     'Sec-Fetch-Mode':'cors',
+                 },
 
-                body: JSON.stringify(viewDetail),
+               body: JSON.stringify(viewDetail),
             }).then((response) => {
-                alert(JSON.stringify(response))
                 console.log("response", response);
                 this.setState({
-                    fetchUser: response.data,
+                    fetchUser: response,
                     isfetchUser:true,
                 });
                 console.log("fetchUser", this.state.fetchUser);
@@ -201,10 +202,9 @@ class viewTravel extends React.Component{
         </div> } if (isfetchUser){
 
             const elements=this.state.fetchUser;
-            alert(JSON.stringify(elements));
             return(
                 <div>
-                    <Label for="Email">Email</Label>{elements["travellerId"]}
+                    <Label for="Email">Email</Label>{elements.url}
 
                 </div>
         )}
