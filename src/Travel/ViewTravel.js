@@ -3,7 +3,17 @@ import {Link,withRouter} from "react-router-dom";
 import React from "react";
 import DateTimePicker from "react-datetime-picker";
 import imageUrl from '../images/travelimg1.jpg'
+const axios = require('axios');
 
+
+
+const divStyle = {
+    width: '100%',
+    height: '1000px' ,
+    backgroundImage: `url(${imageUrl})`,
+    backgroundSize:  'cover',
+    //backgroundColor: #999,
+};
 
 class viewTravel extends React.Component{
 
@@ -118,20 +128,29 @@ class viewTravel extends React.Component{
 
     async fetchUser(event) {
         event.preventDefault();
-       const {viewDetail} = this.state;
-    alert("process.env.REACT_APP_BACKEND_HOST_PING"+process.env.REACT_APP_BACKEND_HOST_PING);
-        if (this.validateForm()) {
-            await fetch(`${process.env.REACT_APP_BACKEND_HOST_PING}`, {
-                method:  'POST',
-                 headers: {
-                //     Accept: 'application/json',
-                //     'Content-Type': 'application/json',
-                //     'Access-Control-Allow-Origin':'*',
-                //     'Sec-Fetch-Mode':'cors',
-                 },
+      // const {viewDetail} = this.state;
+    alert("process.env.REACT_APP_BACKEND_HOST_PING  test"+process.env.REACT_APP_BACKEND_HOST_PING);
+       /* axios.interceptors.request.use(function (config) {
+            // Do something before request is sent
 
-               body: JSON.stringify(viewDetail),
-            }).then((response) => {
+            alert(JSON.stringify(config));
+            return config;
+        }, function (error) {
+            // Do something with request error
+            return Promise.reject(error);
+        });
+        axios.interceptors.response.use(function (response) {
+            alert(JSON.stringify(response));
+            // Do something with response data
+            return response;
+        }, function (error) {
+            // Do something with response error
+            return Promise.reject(error);
+        });*/
+        if (this.validateForm()) {
+
+            axios.get(`${process.env.REACT_APP_BACKEND_HOST_PING}`
+                ).then((response) => {
                 console.log("response", response);
                 this.setState({
                     fetchUser: response,
@@ -140,6 +159,7 @@ class viewTravel extends React.Component{
                 console.log("fetchUser", this.state.fetchUser);
             })
                 .catch((error) => {
+                    alert(JSON.stringify(error))
              /*       let stub_User=[];
                     stub_User["travellerId"]="ashwin";
                     alert(JSON.stringify(this.state.isfetchUser))
@@ -164,10 +184,10 @@ class viewTravel extends React.Component{
 
         const ViewDetails=<h1>View Details</h1>
         if (!isfetchUser){
-        return<div style={{backgroundImage: `url(${imageUrl})` }}>
+        return<div style={divStyle } >
 
 
-            <Container style={{fontWeight: 'bold'}}>
+            <Container style={{fontWeight: 'bold'}} >
                 {ViewDetails}
                 <FormGroup>
                     <Label for="Email">Email</Label>
