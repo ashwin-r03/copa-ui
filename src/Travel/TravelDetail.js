@@ -3,7 +3,13 @@ import { Link, withRouter } from 'react-router-dom';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 import DateTimePicker from "react-datetime-picker";
 import imageUrl from '../images/travelimg1.jpg'
-
+const divStyle = {
+    width: '100%',
+    height: '1000px' ,
+    backgroundImage: `url(${imageUrl})`,
+    backgroundSize:  'cover',
+    //backgroundColor: #999,
+};
 
 class TravelDetail extends Component {
 
@@ -48,7 +54,6 @@ class TravelDetail extends Component {
         const name = target.name;
         let item = {...this.state.trip};
          item[name] = value;
-
         this.setState({trip:item});
     }
 
@@ -62,11 +67,10 @@ class TravelDetail extends Component {
         event.preventDefault();
         const {trip} = this.state;
         this.setState({trips:{trip}})
-            await fetch(`https://dd-project-c.appspot.com/createTrip`, {
+            await fetch(`${process.env.REACT_APP_BACKEND_HOST}/createTrip`, {
             method: (trip.id) ? 'PUT' : 'POST',
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
+
             },
             body: JSON.stringify(this.state.trips),
         });
@@ -117,7 +121,7 @@ class TravelDetail extends Component {
             return <p>Loading...</p>;
         }*/
 
-        return<div style={{backgroundImage: `url(${imageUrl})` }}>
+        return<div style={divStyle}>
             <Container style={{fontWeight: 'bold'}} >
                  <Form onSubmit={this.handleSubmit}>
                     {title}
