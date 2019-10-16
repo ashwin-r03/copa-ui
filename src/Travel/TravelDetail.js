@@ -67,7 +67,8 @@ class TravelDetail extends Component {
     async handleSubmit(event) {
         event.preventDefault();
         const {trip} = this.state;
-        this.setState({trips:{trip}})
+        this.setState({trips:{trip}});
+        alert(JSON.stringify(trip));
         axios.post(`${process.env.REACT_APP_BACKEND_HOST_CREATE}`,JSON.stringify(this.state.trips)).then((response) => {
             console.log("response", response);
         }).catch((error) => {
