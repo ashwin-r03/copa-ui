@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 import DateTimePicker from "react-datetime-picker";
 import imageUrl from '../images/travelimg1.jpg'
+const axios = require('axios');
 const divStyle = {
     width: '100%',
     height: '1000px' ,
@@ -67,14 +68,12 @@ class TravelDetail extends Component {
         event.preventDefault();
         const {trip} = this.state;
         this.setState({trips:{trip}})
-            await fetch(`${process.env.REACT_APP_BACKEND_HOST}/createTrip`, {
-            method: (trip.id) ? 'PUT' : 'POST',
-            headers: {
-
-            },
-            body: JSON.stringify(this.state.trips),
+        axios.post(`${process.env.REACT_APP_BACKEND_HOST_CREATE}`,JSON.stringify(this.state.trips)).then((response) => {
+            console.log("response", response);
+        }).catch((error) => {
+            console.log(JSON.stringify(error));
+            console.log(error);
         });
-      // this.props.history.push('http://localhost:8081/tc');
     };
 
 
