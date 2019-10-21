@@ -19,10 +19,10 @@ class viewTravel extends React.Component{
 
 
     viewDetail={
-        email:'',
-        Source: '',
-        Destination:'',
-        StartDate:new Date(),
+        userId:'',
+        source: '',
+        destination:'',
+        travelStartDate:new Date(),
 
 };
 
@@ -44,9 +44,9 @@ class viewTravel extends React.Component{
 
     handleDateChange = date => {
       let datestate=this.state.viewDetail;
-        datestate.StartDate=date;
+        datestate.travelStartDate=date;
         this.setState({
-            StartDate:date,
+            travelStartDate:date,
         });
     };
 
@@ -78,7 +78,7 @@ class viewTravel extends React.Component{
             }
         }*/
 
-        if (!fields["email"]) {
+        if (!fields["userId"]) {
             formIsValid = false;
             errors["email"] = "*Please enter your email-ID.";
         }
@@ -129,7 +129,6 @@ class viewTravel extends React.Component{
     async fetchUser(event) {
         event.preventDefault();
       // const {viewDetail} = this.state;
-    alert("process.env.REACT_APP_BACKEND_HOST_PING  test"+process.env.REACT_APP_BACKEND_HOST_PING);
        /* axios.interceptors.request.use(function (config) {
             // Do something before request is sent
 
@@ -148,8 +147,13 @@ class viewTravel extends React.Component{
             return Promise.reject(error);
         });*/
         if (this.validateForm()) {
-
-            axios.get(`${process.env.REACT_APP_BACKEND_HOST_PING}`
+                alert(JSON.stringify(this.state.viewDetail));
+            axios.post(`${process.env.REACT_APP_BACKEND_HOST_GCP}/findTrip`,JSON.stringify(this.state.viewDetail),{
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                }
                 ).then((response) => {
                 console.log("response", response);
                 this.setState({
@@ -191,29 +195,30 @@ class viewTravel extends React.Component{
                 {ViewDetails}
                 <FormGroup>
                     <Label for="Email">Email</Label>
-                    <Input type="email" name="email" id="email" value={viewDetail.email || ''}
+                    <Input type="email" name="userId" id="userId" value={viewDetail.userId || ''}
                            onChange={this.handleChange} autoComplete="email"/>
                     <div className="alert-danger">{this.state.errors.email}</div>
                 </FormGroup>
                 <FormGroup>
                     <Label for="Source">Source</Label>
-                    <Input type="text" name="Source" id="Source" value={viewDetail.Source || ''}
+                    <Input type="text" name="source" id="source" value={viewDetail.source || ''}
                            onChange={this.handleChange} autoComplete="Source" maxLength={3}/>
                 </FormGroup>
                 <FormGroup>
                     <Label for="Destination">Destination</Label>
-                    <Input type="text" name="Destination" id="Destination" value={viewDetail.Destination || ''}
+                    <Input type="text" name="destination" id="destination" value={viewDetail.destination || ''}
                            onChange={this.handleChange} autoComplete="Destination" maxLength={3}/>
                 </FormGroup>
                 <FormGroup>
                     <Label for="StartDate">StartDate</Label>
-                    <DateTimePicker name="StartDate" id="StartDate" selected={this.state.StartDate}
-                                    value={this.state.viewDetail.StartDate || ''}
+                    <DateTimePicker name="travelStartDate" id="travelStartDate" selected={this.state.travelStartDate}
+                                    value={this.state.viewDetail.travelStartDate || ''}
                                     onChange={this.handleDateChange} autoComplete="StartDate"/>
                 </FormGroup>
 
                 <FormGroup>
                     <Button color="primary" tag={Link} to="/view" id="view" onClick={this.fetchUser}>View</Button>{' '}
+                    <Button color="secondary" tag={Link} to="/home">Back</Button>
                 </FormGroup>
 
             </Container>
