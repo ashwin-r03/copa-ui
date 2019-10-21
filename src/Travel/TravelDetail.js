@@ -19,8 +19,8 @@ class TravelDetail extends Component {
                 travelerName:'',
                 travelStartDate:'',
                 tripId:'',
-                Source:'',
-                Destination:'',
+                source:'',
+                destination:'',
                 travelMonth:'',
                 mode:'',
                 airways:'',
@@ -33,7 +33,7 @@ class TravelDetail extends Component {
               //  Itinerary:'',
               //  OperatedBy:'',
                // ServiceObtained:'',
-                PreviouslyTravel:false,
+                previouslyTravel:false,
             };
 
     constructor(props) {
@@ -68,8 +68,18 @@ class TravelDetail extends Component {
         event.preventDefault();
         const {trip} = this.state;
         this.setState({trips:{trip}});
-        alert(JSON.stringify(trip));
-        axios.post(`${process.env.REACT_APP_BACKEND_HOST_CREATE}`,JSON.stringify(this.state.trips)).then((response) => {
+        /*const options = {
+            headers: {'content-Type': 'application/json'}
+        };*/
+            alert(JSON.stringify(this.state));
+        axios.post(`${process.env.REACT_APP_BACKEND_HOST_GCP}/createTrip`,JSON.stringify(this.state),{
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF-8'
+                }
+            }
+
+
+            ).then((response) => {
             console.log("response", response);
         }).catch((error) => {
             console.log(JSON.stringify(error));
@@ -151,13 +161,13 @@ class TravelDetail extends Component {
 
                     <FormGroup>
                     <Label for="Source">Source</Label>
-                    <Input type="text" name="Source" id="Source" value={trip.Source || ''}
+                    <Input type="text" name="source" id="source" value={trip.source || ''}
                            onChange={this.handleChange} autoComplete="Source" maxLength={3}/>
                     </FormGroup>
 
                     <FormGroup>
                     <Label for="Destination">Destination</Label>
-                    <Input type="text" name="Destination" id="Destination" value={trip.Destination || ''}
+                    <Input type="text" name="destination" id="destination" value={trip.destination || ''}
                            onChange={this.handleChange} autoComplete="Destination" maxLength={3}/>
                     </FormGroup>
 
@@ -181,7 +191,7 @@ class TravelDetail extends Component {
 
                     <FormGroup>
                     <Label for="PreviouslyTravel">PreviouslyTravel</Label>{'  '}
-                    <input type="checkbox"  className="text-center" name="PreviouslyTravel" id="PreviouslyTravel" checked={this.state.trip.PreviouslyTravel}
+                    <input type="checkbox"  className="text-center" name="previouslyTravel" id="previouslyTravel" checked={this.state.trip.previouslyTravel}
                            onChange={this.handleInputChange} autoComplete="PreviouslyTravel" />
                     </FormGroup>
 
