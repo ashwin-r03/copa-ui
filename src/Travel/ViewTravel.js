@@ -45,6 +45,7 @@ class viewTravel extends React.Component{
     handleDateChange = date => {
       let datestate=this.state.viewDetail;
         datestate.travelStartDate=date;
+        alert(date);
         this.setState({
             travelStartDate:date,
         });
@@ -211,7 +212,7 @@ class viewTravel extends React.Component{
                 </FormGroup>
                 <FormGroup>
                     <Label for="StartDate">StartDate</Label>
-                    <DateTimePicker name="travelStartDate" id="travelStartDate" selected={this.state.travelStartDate}
+                    <DateTimePicker   name="travelStartDate" id="travelStartDate"
                                     value={this.state.viewDetail.travelStartDate || ''}
                                     onChange={this.handleDateChange} autoComplete="StartDate"/>
                 </FormGroup>
