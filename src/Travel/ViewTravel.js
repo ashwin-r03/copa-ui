@@ -1,11 +1,13 @@
 import {Button, Container, FormGroup, Input, Label} from "reactstrap";
 import {Link,withRouter} from "react-router-dom";
 import React from "react";
-import DateTimePicker from "react-datetime-picker";
+//import DatePicker from "react-date-picker";
+import moment from 'moment-timezone';
 import imageUrl from '../images/travelimg1.jpg'
 const axios = require('axios');
 
 
+moment.tz.setDefault("America/Los_Angeles");
 
 const divStyle = {
     width: '100%',
@@ -22,7 +24,7 @@ class viewTravel extends React.Component{
         userId:'',
         source: '',
         destination:'',
-        travelStartDate:new Date(),
+        travelStartDate:'',
 
 };
 
@@ -41,11 +43,10 @@ class viewTravel extends React.Component{
     }
 
 
-
     handleDateChange = date => {
-      let datestate=this.state.viewDetail;
+        let datestate=this.state.viewDetail;
         datestate.travelStartDate=date;
-        alert(date);
+
         this.setState({
             travelStartDate:date,
         });
@@ -147,7 +148,7 @@ class viewTravel extends React.Component{
             // Do something with response error
             return Promise.reject(error);
         });*/
-        if (this.validateForm()) {
+        //if (this.validateForm()) {
                 alert(JSON.stringify(this.state.viewDetail));
             axios.post(`${process.env.REACT_APP_BACKEND_HOST_GCP}/findTrip`,JSON.stringify(this.state.viewDetail),{
                     headers: {
@@ -181,7 +182,7 @@ class viewTravel extends React.Component{
           //  this.props.history.push("/home");
 
         }
-    };
+  //  };
 
     render(){
         const {viewDetail} = this.state;
@@ -194,12 +195,12 @@ class viewTravel extends React.Component{
 
             <Container style={{fontWeight: 'bold'}} >
                 {ViewDetails}
-                <FormGroup>
+                {/*<FormGroup>
                     <Label for="Email">Email</Label>
                     <Input type="email" name="userId" id="userId" value={viewDetail.userId || ''}
                            onChange={this.handleChange} autoComplete="email"/>
                     <div className="alert-danger">{this.state.errors.email}</div>
-                </FormGroup>
+                </FormGroup>*/}
                 <FormGroup>
                     <Label for="Source">Source</Label>
                     <Input type="text" name="source" id="source" value={viewDetail.source || ''}
@@ -210,13 +211,13 @@ class viewTravel extends React.Component{
                     <Input type="text" name="destination" id="destination" value={viewDetail.destination || ''}
                            onChange={this.handleChange} autoComplete="Destination" maxLength={3}/>
                 </FormGroup>
-                <FormGroup>
+                {/*<FormGroup>
                     <Label for="StartDate">StartDate</Label>
-                    <DateTimePicker   name="travelStartDate" id="travelStartDate"
+                    <DatePicker   name="travelStartDate" id="travelStartDate"
                                     value={this.state.viewDetail.travelStartDate || ''}
                                     onChange={this.handleDateChange} autoComplete="StartDate"/>
                 </FormGroup>
-
+*/}
                 <FormGroup>
                     <Button color="primary" tag={Link} to="/view" id="view" onClick={this.fetchUser}>View</Button>{' '}
                     <Button color="secondary" tag={Link} to="/home">Back</Button>
