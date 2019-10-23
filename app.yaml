@@ -1,6 +1,5 @@
 runtime: nodejs10
 instance_class: F1
-service: travelui.appspot.com
 manual_scaling:
   instances: 1
 
