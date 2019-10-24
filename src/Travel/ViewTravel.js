@@ -21,10 +21,10 @@ class viewTravel extends React.Component{
 
 
     viewDetail={
-        userId:'',
+       // userId:'',
         source: '',
         destination:'',
-        travelStartDate:'',
+      //  travelStartDate:'',
 
 };
 
@@ -54,7 +54,7 @@ class viewTravel extends React.Component{
 
     handleChange(event) {
         const target = event.target;
-        const value = target.value;
+        const value = target.value.toUpperCase();
         const name = target.name;
         let item = {...this.state.viewDetail};
         item[name] = value;
