@@ -75,7 +75,7 @@ class TravelDetail extends Component {
         /*const options = {
             headers: {'content-Type': 'application/json'}
         };*/
-            alert(JSON.stringify(this.state));
+           // alert(JSON.stringify(this.state));
         axios.post(`${process.env.REACT_APP_BACKEND_HOST_GCP}/createTrip`,JSON.stringify(this.state),{
                 headers: {
                     'Content-Type': 'application/json'
