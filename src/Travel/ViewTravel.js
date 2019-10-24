@@ -221,7 +221,7 @@ class viewTravel extends React.Component {
                     <FormGroup>
                         <Button color="primary" tag={Link} to="/view" id="view"
                                 onClick={this.fetchUser}>View</Button>{' '}
-                        <Button color="secondary" tag={Link} to="/home">Back</Button>
+                        <Button color="secondary" tag={Link} to="/">Back</Button>
                     </FormGroup>
 
                 </Container>
