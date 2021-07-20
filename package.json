@@ -18,7 +18,7 @@
     "react-datetime": "^2.16.3",
     "react-datetime-picker": "^2.7.1",
     "react-dom": "^16.9.0",
-    "react-native": "^0.61.2",
+    "react-native": "^0.62.3",
     "react-native-awesome-alerts": "^1.2.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1",
